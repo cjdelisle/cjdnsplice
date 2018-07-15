@@ -118,3 +118,16 @@ true
 > Cjdnsplice.routesThrough("0000.001b.0535.10e5", "0000.0000.0000.0013")
 false
 ```
+
+### unsplice(destination:string, midPath:string): string
+This will output a value which if passed to splice with the input midPath, would yield the input
+destination. If `routesThrough(destination, midPath)` would return false, this throws an error.
+
+See [LabelSplicer_unsplice()](https://github.com/cjdelisle/cjdns/blob/master/switch/LabelSplicer.h#L23)
+
+```javascript
+> Cjdnsplice.splice("0000.0000.0000.0015", "0000.0000.0000.0013")
+'0000.0000.0000.0153'
+> Cjdnsplice.unsplice("0000.0000.0000.0153", "0000.0000.0000.0013")
+'0000.0000.0000.0015'
+```

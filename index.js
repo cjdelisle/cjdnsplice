@@ -260,3 +260,20 @@ const routesThrough = module.exports.routesThrough = (dest /*:string*/, midPath 
     }
     return false;
 };
+
+const unsplice = module.exports.unsplice = (dest /*:string*/, midPath /*:string*/) => {
+    const d = _labelToBits(dest);
+    const m = _labelToBits(midPath);
+    let sliced;
+    for (let i = 0; i < m.length; i++) {
+        if (!m[i]) { continue; }
+        sliced = d.slice(0, i + 1);
+        if (d.slice(i + 1).join('') !== m.slice(i + 1).join('')) {
+            throw new Error("impossible to unsplice " + dest + " " + midPath);
+        }
+        break;
+    }
+    if (!sliced) { throw new Error("impossible to unsplice " + dest + " " + midPath); }
+    while (sliced.length < 64) { sliced.unshift(0); }
+    return _bitsToLabel(sliced);
+};

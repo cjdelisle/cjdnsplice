@@ -145,6 +145,23 @@ const routesThroughTest = () => {
     if (Cjdnsplice.routesThrough("0000.001b.0535.10e5", "0000.0000.0000.0013")) { throw new Error(); }
 };
 
+const unspliceTest = () => {
+    const ARRAY = [
+        "0000.0000.0000.0015",
+        "0000.0000.0000.008e",
+        "0000.0000.0000.00a2",
+        "0000.0000.0000.001d",
+        "0000.0000.0000.0414",
+        "0000.0000.0000.001b"
+    ];
+    let val = "0000.001b.0535.10e5";
+    ARRAY.forEach((x) => {
+        val = Cjdnsplice.unsplice(val, x);
+        //console.log(val);
+    });
+    if (val !== '0000.0000.0000.0001') { throw new Error(); }
+};
+
 cannonicalize("0000.0000.0000.009e");
 cannonicalize("0000.0000.0000.041c");
 buildLabelTest();
@@ -153,3 +170,4 @@ testBitsToLabel();
 reEncodeTest();
 reEncodeTest358();
 routesThroughTest();
+unspliceTest();
