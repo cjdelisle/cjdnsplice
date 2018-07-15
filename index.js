@@ -102,8 +102,8 @@ const printScheme = module.exports.printScheme = (scheme /*:EncodingScheme*/) =>
     return JSON.stringify(scheme);
 };
 
-const splice = module.exports.splice = function (...args /*:Array<string>*/) {
-    const bits = args.map(_labelToBits);
+const splice = module.exports.splice = function (/*::...args: Array<string>*/) {
+    const bits = Array.prototype.slice.call(arguments).map(_labelToBits);
     return _bitsToLabel(_spliceBits.apply(null, bits));
 };
 
