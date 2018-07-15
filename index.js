@@ -250,3 +250,13 @@ const buildLabel = module.exports.buildLabel = (pathArray /*:Array<PathHop>*/) =
     }
     return { label: result, path: path };
 };
+
+const routesThrough = module.exports.routesThrough = (dest /*:string*/, midPath /*:string*/) => {
+    const d = _labelToBits(dest);
+    const m = _labelToBits(midPath);
+    for (let i = 0; i < m.length; i++) {
+        if (!m[i]) { continue; }
+        return d.slice(i + 1).join('') === m.slice(i + 1).join('');
+    }
+    return false;
+};

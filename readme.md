@@ -16,6 +16,8 @@ want to reach, you can splice a label for reaching him using
 right to left, the first hop is the furthest to the right in the splice function. If the result
 of the splicing is too long to fit in a label (60 bits) then it will return `ffff.ffff.ffff.ffff`.
 
+See: [LabelSplicer_splice()](https://github.com/cjdelisle/cjdns/blob/cjdns-v20.2/switch/LabelSplicer.h#L36)
+
 ```javascript
 Cjdnsplice.splice("0000.0000.0000.0015", "0000.0000.0000.0013") -> '0000.0000.0000.0153'
 ```
@@ -36,6 +38,8 @@ Tests if a label contains only one hop, the first argument is the string represe
 label and the second argument is the encoding scheme used by the node which is at the beginning
 of the path given by the label.
 
+See: [EncodingScheme_isOneHop()](https://github.com/cjdelisle/cjdns/blob/cjdns-v20.2/switch/EncodingScheme.c#L451)
+
 ```javascript
 Cjdnsplice.isOneHop('0000.0000.0000.0013', Cjdnsplice.SCHEME_358) -> true
 Cjdnsplice.isOneHop('0000.0000.0000.0015', Cjdnsplice.SCHEME_358) -> true
@@ -46,6 +50,8 @@ Cjdnsplice.isOneHop('0000.0000.0000.0153', Cjdnsplice.SCHEME_358) -> false
 Get the number of the encoding **form** used for the first *director* of the label. Recall an
 encoding *scheme* is one or more encoding *forms*, this gets the number of that form or -1 if
 the label is not recognized as using the given scheme.
+
+See: [EncodingScheme_getFormNum()](https://github.com/cjdelisle/cjdns/blob/cjdns-v20.2/switch/EncodingScheme.c#L23)
 
 ```javascript
 Cjdnsplice.getEncodingForm('0000.0000.0000.0013', Cjdnsplice.SCHEME_358) -> 2
@@ -59,6 +65,8 @@ be detected, you pass an invalid **desiredFormNum** or if you try to re-encode t
 (`0001`). It will also throw an error if re-encoding a label will make it too long (more than 60
 bits). If desiredFormNum is set to `Cjdnsplice.FORM_CANNONICAL` then it will re-encode the label
 into it's *cannonical* form, that is the smallest form which can hold that director.
+
+See: [EncodingScheme_convertLabel()](https://github.com/cjdelisle/cjdns/blob/cjdns-v20.2/switch/EncodingScheme.c#L56)
 
 ```javascript
 Cjdnsplice.reEncode("0000.0000.0000.0015", Cjdnsplice.SCHEME_358, 0) -> '0000.0000.0000.0404'
@@ -97,3 +105,16 @@ This function results in an Object containing 2 elements, "label" and "path". La
 label for this path while "path" is the hops to get there. Notice in the "path" element, the second
 to last hop hash been changed from `001b` to `0092`, this is a re-encoding to ensure that the label
 remains the right length as the reverse path for this hop is `00ee` which is longer than `001b`.
+
+### routesThrough(destination:string, midPath:string): boolean
+This will return true if the node at the end of the route given by midPath is a hop along the path
+given by destination.
+
+See [LabelSplicer_routesThrough()](https://github.com/cjdelisle/cjdns/blob/cjdns-v20.2/switch/LabelSplicer.h#L52)
+
+```javascript
+> Cjdnsplice.routesThrough("0000.001b.0535.10e5", "0000.0000.0000.0015")
+true
+> Cjdnsplice.routesThrough("0000.001b.0535.10e5", "0000.0000.0000.0013")
+false
+```

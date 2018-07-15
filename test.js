@@ -140,6 +140,11 @@ var reEncodeTest358 = () => {
     }
 };
 
+const routesThroughTest = () => {
+    if (!Cjdnsplice.routesThrough("0000.001b.0535.10e5", "0000.0000.0000.0015")) { throw new Error(); }
+    if (Cjdnsplice.routesThrough("0000.001b.0535.10e5", "0000.0000.0000.0013")) { throw new Error(); }
+};
+
 cannonicalize("0000.0000.0000.009e");
 cannonicalize("0000.0000.0000.041c");
 buildLabelTest();
@@ -147,3 +152,4 @@ spliceTest();
 testBitsToLabel();
 reEncodeTest();
 reEncodeTest358();
+routesThroughTest();
