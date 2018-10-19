@@ -1,11 +1,11 @@
 {
   "name": "cjdnsplice",
   "description": "tools for manipulating cjdns switch labels",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "license": "GPL-3.0+",
   "repository": "https://github.com/cjdelisle/cjdnsplice",
   "devDependencies": {
-    "flow-bin": "^0.42.0",
+    "flow-bin": "^0.83.0",
     "jshint": "~2.9.1"
   },
   "scripts": {

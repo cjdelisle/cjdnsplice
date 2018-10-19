@@ -47,11 +47,11 @@ var _bitsToLabel = module.exports._bitsToLabel = function (array /*:Array<number
     return chars.join('');
 };
 
-var errorArray = function () {
+var errorArray = function () /*:Array<number>*/ {
     return new Array(64).fill(1);
 };
 
-const spliceBits1 = (goHere, viaHere) => {
+const spliceBits1 = (goHere, viaHere) /*:Array<number>*/ => {
     goHere = goHere.slice(0);
     viaHere = viaHere.slice(0);
     while (viaHere.shift() === 0) { }
